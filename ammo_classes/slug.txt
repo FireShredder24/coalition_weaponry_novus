@@ -1,0 +1,9 @@
+ID = slug
+MaxCarried = 1
+MaxCarriedSprites = 1
+CarriedSprite
+{
+	File = "railgun_slug.png"
+	Size = [1, 1]
+}	
+CarriedSpriteOffset = [0, .25]

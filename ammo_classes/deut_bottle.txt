@@ -1,0 +1,9 @@
+ID = deut_bottle
+MaxCarried = 1
+MaxCarriedSprites = 1
+CarriedSprite
+{
+	File = "deut_bottle.png"
+	Size = [1, 1]
+}
+CarriedSpriteOffset = [0, .25]

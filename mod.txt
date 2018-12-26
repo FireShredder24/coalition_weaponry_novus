@@ -1,0 +1,21 @@
+ID = "FireShredder24.CWP"
+Name = "Coalition Weapons Pack: Novus"
+Version = 2.0
+CompatibleGameVersions = ["0.14.4"]
+ModifiesMultiplayer = true
+Author = "FireShredder24"
+Description = "This is a complete rewrite of the older Coalition Weapons Pack, which was created in November of 2017.  This mod is meant to preserve some of the original spirit of that mod, while streamlining gameplay and contributing to the ethos of the CWP.\n\n"\
+							"I would like to give a special thanks to the following users on the Cosmoteer forums and Discord who contributed to this great project:\n\n"\
+							"NaterzPotaterz, Jbox1, Jesus3747, Clay, brank, kola2134, solar-soup-bowl, Bevan, dafeeeeeeeeeesh, CursedPh4ntom, Lafiel, and Bubbet."
+StringsFolder = "strings"
+Actions
+[
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/terran.txt>/Terran/Parts"
+		ManyToAdd
+		[
+
+		]
+	}
+]
