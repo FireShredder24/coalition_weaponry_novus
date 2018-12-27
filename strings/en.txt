@@ -1,0 +1,34 @@
+Parts
+{
+	SlugStorageDesc = "A cargo bay that stores 12 large railgun slugs when they are not in use."
+	SlugStorageIcon = "Slug Storage"
+	SlugStorage = "Railgun Slug Storage"
+
+	MinislugStorageDesc = "A cargo bay that stores 15 crates of minislugs when they are not in use."
+	MinislugStorageIcon = "Minislug Storage"
+	MinislugStorage = "Minislug Storage"
+
+	DeutElectroDesc = "A machine that uses electrolysis to extract deuterated water from natural water, then seperates the deuterium and prepares it for use as a fusion fuel."
+	DeutElectroIcon = "Electrolyzer"
+	DeutElectro = "Deuterium Electrolyzer"
+
+	MicFusReactorDesc = "A small inertial confinement fusion reactor that uses 1 tank of deuterium gas to produce 4 batteries."
+	MicFusReactorIcon = "Microfusion React."
+	MicFusReactor = "Microfusion Reactor"
+
+	LMPCDesc = "The Linear Magnetoplasma Cannon is a railgun that fires plasma rounds that are sourced from a microfusion core.  High shield/electrical damage, medium part damage, low penetration, low DPS."
+	LMPCIcon = "LMAC"
+	LMPC = "Linear MagnetoPlasma Cannon"
+
+	FMACDesc = "The Frictionless Magnetic Accelerator Cannon is a railgun that fires ferric tungsten slugs using the Lorentz force.  Instead of the conventional superconducting rails, the FMAC uses highly dense fusial plasma as rails."
+	FMACIcon = "FMAC"
+	FMAC = "Frictionless Magnetic Accelerator Cannon"
+
+	HMACDesc = "The Helical Magnetic Accelerator Cannon is a railgun whose rails are twisted in a way that reduces power usage, allowing it to be powered by conventional batteries."
+	HMACIcon = "HMAC"
+	HMAC = "Helical Magnetic Accelerator Cannon"
+
+	MAPDDesc = "The Magnetic Accelerator Point Defense is a double-barreled coilgun that fires in 4-round bursts.  It can target both enemy guided munitions and hostile vessels.  Low shield damage, medium part damage, low/medium penetration, medium DPS."
+	MAPDIcon = "MAPD"
+	MAPD = "Magnetic Accelerator Point Defense"
+}

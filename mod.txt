@@ -1,12 +1,12 @@
-ID = "FireShredder24.CWP"
-Name = "Coalition Weapons Pack: Novus"
+ID = "FireShredder24.CNO"
+Name = "Coalition Weapons Pack: Novus Ordo"
 Version = 2.0
 CompatibleGameVersions = ["0.14.4"]
 ModifiesMultiplayer = true
 Author = "FireShredder24"
 Description = "This is a complete rewrite of the older Coalition Weapons Pack, which was created in November of 2017.  This mod is meant to preserve some of the original spirit of that mod, while streamlining gameplay and contributing to the ethos of the CWP.\n\n"\
 							"I would like to give a special thanks to the following users on the Cosmoteer forums and Discord who contributed to this great project:\n\n"\
-							"NaterzPotaterz, Jbox1, Jesus3747, Clay, brank, kola2134, solar-soup-bowl, Bevan, dafeeeeeeeeeesh, CursedPh4ntom, Lafiel, and Bubbet."
+							"NaterzPotaterz, Jbox1, Jesus3747, Clay, brank, kola2134, solar-soup-bowl, Bevan, Ultra Blast, dafeeeeeeeeeesh, CursedPh4ntom, Lafiel, JarHead, and Bubbet."
 StringsFolder = "strings"
 Actions
 [
@@ -15,7 +15,23 @@ Actions
 		AddTo = "<ships/terran/terran.txt>/Terran/Parts"
 		ManyToAdd
 		[
-
+			&<slug_storages/large-slugs.txt>/Part
+			&<slug_storages/minislugs.txt>/Part
 		]
+	}
+	{
+		Action = Add
+		AddTo = "<Ammo/ammo.txt>/Ammo"
+		ToAdd = &<ammo_classes/slug.txt>
+	}
+	{
+		Action = Add
+		AddTo = "<Ammo/ammo.txt>/Ammo"
+		ToAdd = &<ammo_classes/minislugs.txt>
+	}
+	{
+		Action = Add
+		AddTo = "<Ammo/ammo.txt>/Ammo"
+		ToAdd = &<ammo_classes/deut_bottle.txt>
 	}
 ]

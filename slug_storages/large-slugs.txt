@@ -1,11 +1,10 @@
 Part : /BASE_PART
 {
-	NameKey = "Parts/AmmoStorage"
-	IconNameKey = "Parts/AmmoStorageIcon"
-	IDString = cosmoteer.ammo_storage // Part IDs must always be in the form of "author_name.part_name". If making your own mod, do *not* use "cosmoteer" as your author name, because it may conflict with future vanilla parts.
-	OtherIDs = [ammo_storage]
+	NameKey = "Parts/SlugStorage"
+	IconNameKey = "Parts/SlugStorageIcon"
+	IDString = fireshredder24.slugstorage
 	EditorGroup = "Munitions"
-	DescriptionKey = "Parts/AmmoStorageDesc"
+	DescriptionKey = "Parts/SlugStorageDesc"
 	Cost = 1000
 	AIValue = 10
 	Size = [2, 2]
@@ -16,7 +15,7 @@ Part : /BASE_PART
 	{
 		Texture
 		{
-			File = "icon.png"
+			File = "slugicon.png"
 			SampleMode = Linear
 		}
 		Size = [64, 64]
@@ -40,8 +39,8 @@ Part : /BASE_PART
 		AmmoStorage
 		{
 			Type = AmmoConsumer
-			AmmoType = bullet
-			MaxAmmo = 18
+			AmmoType = slug
+			MaxAmmo = 12
 			StartingAmmo = 0
 			SuppliesAmmo = true
 			Priorities = &/PRIORITIES/Storage_Supply
@@ -62,15 +61,15 @@ Part : /BASE_PART
 				DamageLevels
 				[
 					{
-						File = "floor.png"
+						File = "slugfloor.png"
 						Size = [2, 2]
 					}
 					{
-						File = "floor_33.png"
+						File = "slugfloor_33.png"
 						Size = [2, 2]
 					}
 					{
-						File = "floor_66.png"
+						File = "slugfloor_66.png"
 						Size = [2, 2]
 					}
 				]
@@ -155,75 +154,51 @@ Part : /BASE_PART
 			AmmoLevels
 			[
 				{
-					File = "bullets1.png"
+					File = "slugs1.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets2.png"
+					File = "slugs2.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets3.png"
+					File = "slugs3.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets4.png"
+					File = "slugs4.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets5.png"
+					File = "slugs5.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets6.png"
+					File = "slugs6.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets7.png"
+					File = "slugs7.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets8.png"
+					File = "slugs8.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets9.png"
+					File = "slugs9.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets10.png"
+					File = "slugs10.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets11.png"
+					File = "slugs11.png"
 					Size = [2, 2]
 				}
 				{
-					File = "bullets12.png"
-					Size = [2, 2]
-				}
-				{
-					File = "bullets13.png"
-					Size = [2, 2]
-				}
-				{
-					File = "bullets14.png"
-					Size = [2, 2]
-				}
-				{
-					File = "bullets15.png"
-					Size = [2, 2]
-				}
-				{
-					File = "bullets16.png"
-					Size = [2, 2]
-				}
-				{
-					File = "bullets17.png"
-					Size = [2, 2]
-				}
-				{
-					File = "bullets18.png"
+					File = "slugs12.png"
 					Size = [2, 2]
 				}
 			]
@@ -280,7 +255,7 @@ Part : /BASE_PART
 					Toggle = AmmoStorage
 					AtlasSprite
 					{
-						File = &/INDICATORS/NoAmmo
+						File = ../ammo_classes/no_slugs.png
 						Size = [1.5, 1.5]
 					}
 				}

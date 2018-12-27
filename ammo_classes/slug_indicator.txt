@@ -1,1 +1,0 @@
-NoSlugs = "slug_indicator.png"
