@@ -40,7 +40,7 @@ Part : /BASE_PART
 		{
 			Type = AmmoConsumer
 			AmmoType = mini_railgun_slugs
-			MaxAmmo = 15
+			MaxAmmo = 240
 			StartingAmmo = 0
 			SuppliesAmmo = true
 			Priorities = &/PRIORITIES/Storage_Supply
@@ -157,6 +157,126 @@ Part : /BASE_PART
 					File = "bullets1.png"
 					Size = [2, 2]
 				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+								{
+					File = "bullets1.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets2.png"
+					Size = [2, 2]
+				}
 				{
 					File = "bullets2.png"
 					Size = [2, 2]
@@ -166,7 +286,195 @@ Part : /BASE_PART
 					Size = [2, 2]
 				}
 				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets3.png"
+					Size = [2, 2]
+				}
+				{
 					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "bullets5.png"
 					Size = [2, 2]
 				}
 				{
