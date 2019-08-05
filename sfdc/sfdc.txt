@@ -1,0 +1,516 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/SFDC"
+	IconNameKey = "Parts/SFDCIcon"
+	ID = FireShredder24.sfdc
+	OtherIDs = [spacefighter_defense_cannon]
+	EditorGroup = "WeaponsProjectile"
+	DescriptionKey = "Parts/SFDCDesc"
+	Cost = 10000
+	Size = [3, 3]
+	SelectionPriority = 1
+	MaxHealth = 20000
+	TypeCategories = [weapon, uses_ammo, is_crewed]
+	BlockedTravelCells
+	[
+		[1, 1]
+	]
+	ForceManhattenPathInPart = true
+	AllowedDoorLocations
+	[
+		[1, -1]
+		[-1, 1]
+		[3, 1]
+		[1, 3]
+	]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 64]
+	}
+	Components : ^/0/Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, AmmoStorage, PartCrew]
+			Mode = All
+		}
+
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+        FireModeToggle
+		{
+			Type = UIToggle
+			ToggleID = "fire_mode"
+			Default = 1
+		}
+		AutoFireToggle
+		{
+			Type = ModeToggle
+			Mode = FireModeToggle
+			OnMode = 2
+		}
+		AmmoStorage
+		{
+			Type = AmmoConsumer
+			AmmoType = bullet
+			MaxAmmo = 10
+			Priorities = &/PRIORITIES/Weapon_Supply
+			JobUnassignThreshold = 1000000// Effectively unassignable.
+			ResupplyThreshold = 6
+			AmmoDesireToggle = PowerToggle
+
+			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/AmmoDeliver
+		}
+
+		LoadedAmmo
+		{
+			Type = AmmoStorage
+			AmmoType = bullet
+			MaxAmmo = 4
+			DelayBeforeReadyToUse = .25
+			AnticipateMoreAmmoFrom = ["AmmoStorage"]
+			ToggleOnAmmo = 4
+			ToggleOffAmmo = 3
+		}
+
+		Loader
+		{
+			Type = AmmoConverter
+			OperationalToggle = IsOperational
+			FromStorage = AmmoStorage
+			FromQuantity = 2
+			ToStorage = LoadedAmmo
+			ToQuantity = 2
+			MinFromQuantityForConversion = 1
+			Interval = 0.25
+		}
+
+		CrewLocation1
+		{
+			Type = CrewLocation
+			Location = [2.05, 1.5]
+			Rotation = 90d
+		}
+		CrewLocation2
+		{
+			Type = CrewLocation
+			Location = [.95, 1.5]
+			Rotation = 270d
+		}
+
+		PartCrew
+		{
+			Type = PartCrew
+			Crew = 2
+			Priorities = &/PRIORITIES/Weapon_Crew
+			PrerequisitesBeforeCrewing = [AmmoStorage, PowerToggle]
+			CrewDestinations
+			[
+				[2, 1.5]
+				[1, 1.5]
+			]
+			CrewLocations
+			[
+				CrewLocation1
+				CrewLocation2
+			]
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [1.5, 1.5]
+			OperationalToggle = IsOperational
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [3, 3]
+					}
+					{
+						File = "floor_33.png"
+						Size = [3, 3]
+					}
+					{
+						File = "floor_66.png"
+						Size = [3, 3]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						File = "doodads.png"
+						Size = [2, 2]
+						AnimationInterval = 0.1
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "./Data/ships/terran/sensor_array/lights.png"
+						Size = [3, 3]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "./Data/ships/terran/sensor_array/walls.png"
+						Size = [3, 3]
+					}
+					{
+						File = "./Data/ships/terran/sensor_array/walls_33.png"
+						Size = [3, 3]
+					}
+					{
+						File = "./Data/ships/terran/sensor_array/walls_66.png"
+						Size = [3, 3]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [3, 3]
+					}
+					{
+						File = "roof_33.png"
+						Size = [3, 3]
+					}
+					{
+						File = "roof_66.png"
+						Size = [3, 3]
+					}
+				]
+			}
+		}
+
+		BatterySprites
+		{
+			Type = AmmoSprites
+			Location = [1.5, 2]
+			AmmoStorage = AmmoStorage
+			Layer = "doodads_low"
+			AmmoLevels
+			[
+				{
+					File = "./Data/ships/terran/cannon_large/bullets5.png"
+					Size = [3, 2]
+				}
+				{
+					File = "./Data/ships/terran/cannon_large/bullets6.png"
+					Size = [3, 2]
+				}
+				{
+					File = "./Data/ships/terran/cannon_large/bullets7.png"
+					Size = [3, 2]
+				}
+				{
+					File = "./Data/ships/terran/cannon_large/bullets8.png"
+					Size = [3, 2]
+				}
+                {
+					File = "./Data/ships/terran/cannon_large/bullets9.png"
+					Size = [3, 2]
+				}
+                {
+					File = "./Data/ships/terran/cannon_large/bullets10.png"
+					Size = [3, 2]
+				}
+                {
+					File = "./Data/ships/terran/cannon_large/bullets11.png"
+					Size = [3, 2]
+				}
+                {
+					File = "./Data/ships/terran/cannon_large/bullets12.png"
+					Size = [3, 2]
+				}
+                {
+					File = "./Data/ships/terran/cannon_large/bullets13.png"
+					Size = [3, 2]
+				}
+                {
+					File = "./Data/ships/terran/cannon_large/bullets14.png"
+					Size = [3, 2]
+				}
+			]
+		}
+        LoadedAmmoSprites
+		{
+			Type = AmmoSprites
+			Location = [0, 0]
+			Rotation = 90d
+			AmmoStorage = LoadedAmmo
+			Layer = "doodads_high"
+			AmmoLevels
+			[
+				{
+					File = "bullets1.png"
+					Size = [3, 3]
+				}
+				{
+					File = "bullets2.png"
+					Size = [3, 3]
+				}
+				{
+					File = "bullets3.png"
+					Size = [3, 3]
+				}
+				{
+					File = "bullets4.png"
+					Size = [3, 3]
+				}
+			]
+		}
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [1, 1]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/PowerOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/PowerOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/BigPartDestroyed
+			Location = [1.5, 1.5]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1.5, 1.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of ammo.
+				{
+					Toggle = AmmoStorage
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoAmmo
+						Size = [1.5, 1.5]
+					}
+				}
+
+				// No crew.
+				{
+					Toggle = PartCrew
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoCrew
+						Size = [1.5, 1.5]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "./Data/ships/terran/sensor_array/blueprints.png"
+			Size = [3, 3]
+		}
+    Turret
+	{
+			Type = TurretWeapon
+			Location = [1.5, 1.5] // Relative to upper-left corner of unrotated part.
+			Rotation = -90d // Relative to unrotated part.
+			OperationalToggle = IsOperational
+			AutoFireToggle = AutoFireToggle
+			FireInterval = 1.5
+			FiringArc = 360d
+			RotateSpeed = 90d
+			FireThresholdAngle = 1d
+			AIFirepowerRating = 1500
+			Emitter = BulletEmitter
+            AllowFireWithBlockedLOS = true
+
+			AutoTargets
+			[
+				{
+					TargetType = ShipParts
+					Toggle = FireModeToggle
+				}
+			]
+
+			BlueprintArcSprite
+			{
+				Texture = &/INDICATORS/WeaponArc
+				Size = [0, 1.5]
+				Color = [255, 0, 0, 63]
+			}
+			BlueprintArcRadius = 10
+			BlueprintArcSpriteSegments = 64
+
+			CoverageSectorArc
+			{
+				Texture = &/INDICATORS/VerticalGradient
+				VertexColor = [255, 255, 255, 51]
+				QuadCount = 64
+			}
+	}
+
+		ReloadProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = IsOperational
+			ShowProgressFor = Turret
+		}
+
+		BulletEmitter
+		{
+			Type = BulletEmitter
+			ChainedTo = Turret
+			FireTrigger = Turret
+			GetTargetFrom = Turret
+			Location = [3, 0]
+			OperationalToggle = IsOperational
+			Bullet = &<sfdc-shot.txt>
+			Spread = [-2d, 2d]
+			AmmoStorage = LoadedAmmo
+			AmmoUsed = 4
+			Recoil = 30
+		}
+
+		FireEffect
+		{
+			Type = TriggeredEffects
+			ChainedTo = Turret
+			Trigger = Turret
+			Location = [3, 0]
+
+			MediaEffects
+			[
+				&<particles/cannon_shoot_large.txt>
+				&<particles/cannon_smoke_large.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "shoot.wav"
+					SpeedVariation = .25
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .075
+					Duration = .5
+				}
+			]
+		}
+        BarrelSprite
+		{
+			Type = Sprite
+			ChainedTo = Turret
+			Location = [0, 0]
+			Rotation = 90d
+			Layer = "roof_doodads"
+			ResetAnimationTrigger = Turret
+			AtlasSprite
+			{
+				AnimationFiles
+				[
+					//"barrel1.png"
+					"barrel2.png"
+					"barrel3.png"
+					"barrel4.png"
+					"barrel5.png"
+					"barrel6.png"
+					"barrel7.png"
+					"barrel8.png"
+					"barrel1.png"// Loop back to beginning and clamp there.
+				]
+				Size = [3, 3]
+				AnimationInterval = 0.0625
+				AnimationStartTime = MinValue
+				ClampAnimation = true
+			}
+		}
+	/*Stats
+	{
+		CrewRequired = &~/Part/Components/PartCrew/Crew
+		AmmoCapacity = (&~/Part/Components/AmmoStorage/MaxAmmo) + (&~/Part/Components/LoadedAmmo/MaxAmmo)
+
+		MinAmmo = (&../StatsByCategory/0/Stats/AmmoPerSecond) / 2
+		RecAmmo = &../StatsByCategory/0/Stats/AmmoPerSecond
+		MinCrew = (&CrewRequired) + (&MinAmmo) * 1
+		RecCrew = (&CrewRequired) + (&RecAmmo) * 2
+	}
+
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/BulletLarge"
+			Stats
+			{
+				DamagePerShot = &~/Part/Components/BulletEmitter/Bullet/Components/Hit/HitOperational/HitEffects/0/Damage
+				DamagePerSecond = (&DamagePerShot) * (&ROF)
+				Damage = [&../DamagePerShot, &../DamagePerSecond]
+				Penetration = &~/Part/Components/BulletEmitter/Bullet/Components/Hit/Penetration
+				FireChance = (&~/Part/Components/BulletEmitter/Bullet/Components/Hit/PenetratingOperational/HitEffects/1/FireChance) * 100
+				ROF = 1 / (&~/Part/Components/Turret/FireInterval)
+				Range = &~/Part/Components/BulletEmitter/Bullet/Range
+				Arc = deg(&~/Part/Components/Turret/FiringArc)
+				Spread = deg(&~/Part/Components/BulletEmitter/Spread/1)
+				TurretSpeed = deg(&~/Part/Components/Turret/RotateSpeed)
+				ShotSpeed = &~/Part/Components/BulletEmitter/Bullet/Speed
+				ShotHP = &~/Part/Components/BulletEmitter/Bullet/Components/Targetable/Health
+				AmmoPerShot = &~/Part/Components/BulletEmitter/AmmoUsed
+				AmmoPerSecond = (&AmmoPerShot) * (&ROF)
+				ShotAmmoUsage = [&../AmmoPerShot, &../AmmoPerSecond]
+			}
+		}
+	]*/
+}
+}

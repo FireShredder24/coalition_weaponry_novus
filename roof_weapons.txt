@@ -1,0 +1,16 @@
+Key = "roof_weapons"// Ship bucket layer.
+Value // The actual material.
+{
+	UniqueBucket = 1100
+	RenderStage = Upper
+	DrawWithShipGhost = true
+	IsRoof = true
+	AtlasTextureParams
+	{
+		MipLevels = 7 // Assumes 64x64 min part sprite size.
+	}
+	Material
+	{
+		Shader = "parts.shader"
+	}
+}

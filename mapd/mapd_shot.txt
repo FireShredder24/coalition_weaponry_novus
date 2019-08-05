@@ -1,0 +1,144 @@
+ID = FireShredder24.mapd_shot
+OtherIDs = ["mapd_shot"]
+Range = 150
+IdealRange = 120
+Speed = 100
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.01
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+
+	Sprite
+	{
+		Type = Sprite
+		RenderBucket = Upper
+		Sprite
+		{
+			Texture = "shot.png"
+			Size = [1, 1]
+		}
+	}
+
+	Hit
+	{
+		Type = PenetratingHit
+		PhysicsComponent = Physics
+		SourceShipCollisionDelay = Infinity
+		Penetration = 8
+
+		HitShield
+		{
+			HitEffects
+			[
+				{
+					Type = ShieldDamage
+					Damage = 250
+				}
+				{
+					Type = Impulse;
+					Impulse = 10;
+				}
+			]
+
+			MediaEffects = &../HitOperational/MediaEffects
+		}
+		HitOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = 800
+				}
+				{
+					Type = Impulse;
+					Impulse = 10;
+				}
+			]
+
+			MediaEffects
+			[
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "./Data/shots/bullet_med/hit.wav"
+					Volume = .8
+					SpeedVariation = .4
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .25
+					Duration = .3
+				}
+			]
+		}
+		HitStructural
+		{
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = 750
+				}
+				{
+					Type = Impulse
+					Impulse = 10
+				}
+			]
+			MediaEffects
+			[
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "./Data/shots/bullet_med/hit.wav"
+					Volume = .8
+					SpeedVariation = .4
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .25
+					Duration = .3
+				}
+			]
+		}
+		PenetratingOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = 400
+				}
+			]
+		}
+		PenetratingStructural = &PenetratingOperational
+		FinishedPenetratingOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartAreaDamage
+					DamageVsOperationalPerTile = 500
+					RadiusVsOperational = 1
+					DamageVsStructurePerTile = 400
+					RadiusVsStructure = 1
+				}
+			]
+		}
+		FinishedPenetratingStructural
+		{
+			// No effect.
+		}
+	}
+}

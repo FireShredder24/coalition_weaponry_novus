@@ -31,4 +31,8 @@ Parts
 	MAPDDesc = "The Magnetic Accelerator Point Defense is a double-barreled coilgun that fires in 4-round bursts.  It can target both enemy guided munitions and hostile vessels.  Low shield damage, medium part damage, low/medium penetration, medium DPS."
 	MAPDIcon = "MAPD"
 	MAPD = "Magnetic Accelerator Point Defense"
+	
+	SFDC = "Spacefighter-Defense Cannon"
+	SFDCIcon = "SFDC"
+	SFDCDesc = "A roof-mounted cannon that fires shells that explode before contact, releasing a cloud of deadly shrapnel."
 }

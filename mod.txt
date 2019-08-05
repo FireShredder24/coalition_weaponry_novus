@@ -1,7 +1,7 @@
 ID = "FireShredder24.CNO"
 Name = "Coalition Weapons Pack: Novus Ordo"
 Version = 2.0
-CompatibleGameVersions = ["0.14.4"]
+CompatibleGameVersions = ["0.14.4", "0.14.15"]
 ModifiesMultiplayer = true
 Author = "FireShredder24"
 Description = "This is a complete rewrite of the older Coalition Weapons Pack, which was created in November of 2017.  This mod is meant to preserve some of the original spirit of that mod, while streamlining gameplay and contributing to the ethos of the CWP.\n\n"\
@@ -15,10 +15,16 @@ Actions
 		AddTo = "<ships/terran/terran.txt>/Terran/Parts"
 		ManyToAdd
 		[
-			&<slug_storages/large-slugs.txt>/Part
-			&<slug_storages/minislugs.txt>/Part
-			&<mapd/mapd.txt>/Part
+			//&<slug_storages/large-slugs.txt>/Part
+			//&<slug_storages/minislugs.txt>/Part
+			//&<mapd/mapd.txt>/Part
+			&<sfdc/sfdc.txt>/Part
 		]
+	}
+	{
+		Action = Add
+		AddTo = "<ships/terran/terran.txt>/Terran/RenderLayers"
+		ToAdd = &<roof_weapons.txt>
 	}
 	{
 		Action = Add

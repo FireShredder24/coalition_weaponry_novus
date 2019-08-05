@@ -33,7 +33,19 @@ Part : /BASE_PART
 			ToggleID = "on_off"
 			Default = 1
 		}
+		FireModeToggle
+		{
+			Type = UIToggle
+			ToggleID = "fire_mode"
+			Default = 1
+		}
 
+		FireAlternatingToggle
+		{
+			Type = UIToggle
+			ToggleID = "fire_alternating"
+			Default = 0
+		}
 		AmmoStorage
 		{
 			Type = AmmoConsumer
@@ -42,10 +54,18 @@ Part : /BASE_PART
 			StartingAmmo = 0
 			SuppliesAmmo = false
 			Priorities = &/PRIORITIES/Weapon_Supply
-			SuppliesAmmoToggle = PowerToggle
-			AmmoDesireToggle = PowerToggle
 
 			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/AmmoDeliver
+		}
+		BatteryStorage
+		{
+			Type = AmmoConsumer
+			AmmoType = battery
+			MaxAmmo = 2000
+			StartingAmmo = 0
+			SuppliesAmmo = false
+			Priorities = &/PRIORITIES/Weapon_Supply
+			RecieveAmmoMediaEffects = &/COMMON_EFFECTS/AmmoDeliver
 		}
 		Graphics
 		{
@@ -137,6 +157,165 @@ Part : /BASE_PART
 					}
 				]
 			}
+			NonOperationalDoodad = &OperationalDoodad
+		}
+		Turret
+		{
+			Type = TurretWeapon
+			OperationalToggle = IsOperational,
+			Location = [1, 1]// Relative to upper-left corner of unrotated part.
+			Rotation = -90d// Relative to unrotated part.
+			FireInterval = 0.1
+			FiringArc = 360d
+			RotateSpeed = 120d
+			FireThresholdAngle = 1d
+			TargetSearchTriesPerFrame = 4
+			AIFirepowerRating = 1000
+			FireModeToggle = FireModeToggle
+			AllowFireWithBlockedLOS = true
+			TargetTypesByPriority = [Bullets]
+			Emitter = BulletEmitterBase
+
+			BlueprintArcSprite
+			{
+				Texture = &/INDICATORS/WeaponArc
+				Size = [0, 1.5]
+				Color = [255, 0, 0, 63]
+			}
+			BlueprintArcRadius = 10
+			BlueprintArcSpriteSegments = 64
+
+			CoverageSectorArc
+			{
+				Texture = &/INDICATORS/VerticalGradient
+				VertexColor = [255, 255, 255, 51]
+				QuadCount = 64
+			}
+		}
+		ShootCycle
+		{
+			Type = ModeCycle
+			ModeRange = [0, 1]
+			IncrementTrigger = Turret
+			StartingMode = 1 // First shot will switch to mode 0.
+		}
+
+		ShootLeftTrigger
+		{
+			Type = ModeTrigger
+			Mode = ShootCycle
+			TriggerInModes = [0]
+		}
+
+		ShootRightTriggerSynchronized
+		{
+			Type = ModeTrigger
+			Mode = ShootCycle
+			TriggerInModes = [0]
+			OperationalToggle = FireAlternatingToggle
+			InvertOperationalToggle = true
+		}
+
+		ShootRightTriggerAlternating
+		{
+			Type = ModeTrigger
+			Mode = ShootCycle
+			TriggerInModes = [1]
+			OperationalToggle = FireAlternatingToggle
+		}
+
+		ShootRightTrigger
+		{
+			Type = MultiTrigger
+			Triggers = [ShootRightTriggerSynchronized, ShootRightTriggerAlternating]
+		}
+
+		BulletEmitterBase // Doesn't actually fire; only used for targeting and as a base for the left and right emitters.
+		{
+			Type = BulletEmitter
+			ChainedTo = Turret
+			FireTrigger // none, but field is required
+			GetTargetFrom = Turret
+			Location = [0.5, 0]
+			OperationalToggle = IsOperational
+			FireDelay = .2
+			Bullet = &<mapd_shot.txt>
+			AmmoUsage
+			[
+				{
+					AmmoStorage = AmmoStorage
+					AmmoUsed = 1
+				}
+				{
+					AmmoStorage = BatteryStorage
+					AmmoUsed = 125
+				}
+			]
+		}
+
+		BulletEmitterLeft : BulletEmitterBase
+		{
+			Type = BulletEmitter
+			FireTrigger = ShootLeftTrigger
+			Location = [0.5, -0.359375]
+		}
+
+		BulletEmitterRight : BulletEmitterBase
+		{
+			Type = BulletEmitter
+			FireTrigger = ShootRightTrigger
+			Location = [0.5, 0.359375]
+		}
+		TurretGraphics
+		{
+			Type = Graphics
+			OperationalToggle = IsOperational
+			ChainedTo = Turret
+			Location = [0, 0]
+			Rotation = 90d
+			OperationalDoodad
+			{
+				Layer = "roof_weapons"
+				DamageLevels
+				[
+					{
+						File = "turret.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			NonOperationalDoodad = &OperationalDoodad
+		}
+		LeftBarrelSprite
+		{
+			Type = Sprite
+			ChainedTo = Turret
+			Location = [0, 0]
+			Rotation = 90d
+			Layer = "roof_windows"
+			ResetAnimationTrigger = ShootLeftTrigger
+			AtlasSprite
+			{
+				AnimationFiles
+				[
+					"lbarrel1.png"
+					"lbarrel2.png"
+					"lbarrel3.png"
+					"lbarrel.png"
+				]
+				Size = [2, 2]
+				AnimationInterval = 0.05
+				AnimationStartTime = MinValue
+				ClampAnimation = true
+			}
+		}
+		RightBarrelSprite : LeftBarrelSprite
+		{
+			ResetAnimationTrigger = ShootRightTrigger
+			AtlasSprite : ^/0/AtlasSprite
+			{
+				MirrorU = true
+			}
 		}
 		AmmoSprites
 		{
@@ -168,7 +347,29 @@ Part : /BASE_PART
 				}
 			]
 		}
-
+		BatterySprites
+		{
+			Type = AmmoSprites
+			Location = [1, 1]
+			AmmoStorage = BatteryStorage
+			Layer = "turrets"
+			HasZeroAmmoSprite = true
+			AmmoLevels
+			[
+				{
+					File = "battery0.png"
+					Size = [2, 2]
+				}
+				{
+					File = "battery1.png"
+					Size = [2, 2]
+				}
+				{
+					File = "battery2.png"
+					Size = [2, 2]
+				}
+			]
+		}
 		DestroyedEffects
 		{
 			Type = DeathEffects
