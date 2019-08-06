@@ -17,7 +17,7 @@ Actions
 		[
 			//&<slug_storages/large-slugs.txt>/Part
 			//&<slug_storages/minislugs.txt>/Part
-			//&<mapd/mapd.txt>/Part
+			&<mapd/mapd.txt>/Part
 			&<sfdc/sfdc.txt>/Part
 		]
 	}
@@ -26,7 +26,7 @@ Actions
 		AddTo = "<ships/terran/terran.txt>/Terran/RenderLayers"
 		ToAdd = &<roof_weapons.txt>
 	}
-	/*{
+	{
 		Action = Add
 		AddTo = "<Ammo/ammo.txt>/Ammo"
 		ToAdd = &<ammo_classes/slug.txt>
@@ -40,5 +40,5 @@ Actions
 		Action = Add
 		AddTo = "<Ammo/ammo.txt>/Ammo"
 		ToAdd = &<ammo_classes/deut_bottle.txt>
-	}*/
+	}
 ]

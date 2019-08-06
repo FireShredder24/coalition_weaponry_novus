@@ -35,7 +35,7 @@ Components
 		Type = PenetratingHit
 		PhysicsComponent = Physics
 		SourceShipCollisionDelay = Infinity
-		Penetration = 8
+		Penetration = 4
 
 		HitShield
 		{

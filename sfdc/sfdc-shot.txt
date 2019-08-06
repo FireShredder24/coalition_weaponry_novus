@@ -75,7 +75,7 @@ Components
 		Type = PenetratingHit
 		Penetration = 7.0
 		PenetrationSpeed = 20
-		SourceShipCollisionDelay = 10000
+		SourceShipCollisionDelay = Infinity
 
 		HitShield = &HitOperational
 		HitOperational
