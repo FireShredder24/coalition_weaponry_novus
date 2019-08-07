@@ -1,0 +1,388 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/MAPD"
+	IconNameKey = "Parts/MAPDIcon"
+	ID = FireShredder24.mapd
+	OtherIDs = [mapd]
+	EditorGroup = "WeaponsProjectile"
+	DescriptionKey = "Parts/MAPDDesc"
+	Cost = 6500
+	AIValue = 1000
+	Size = [2, 2]
+	MaxHealth = 16000
+	TypeCategories = [uses_slugs, weapon]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "mapd_roof.png"
+			SampleMode = Linear
+		}
+		Size = [64, 64]
+	}
+	Components : ^/0/Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, BatteryStorage]
+			Mode = All
+		}
+
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+        
+        FireModeToggle
+		{
+			Type = UIToggle
+			ToggleID = "fire_mode"
+			Default = 1
+		}
+		AutoFireToggle
+		{
+			Type = ModeToggle
+			Mode = FireModeToggle
+			OnMode = 2
+		}
+
+		FirePrefToggle
+		{
+			Type = UIToggle
+			ToggleID = "fire_pref"
+			Default = 1
+		}
+		FirePrefAttack
+		{
+			Type = ModeToggle
+			Mode = FirePrefToggle
+			OnModes = [0, 2]
+		}
+		FirePrefDefend
+		{
+			Type = ModeToggle
+			Mode = FirePrefToggle
+			OnModes = [1, 2]
+		}
+		AttackToggle
+		{
+			Type = MultiToggle
+			Toggles = [FireModeToggle, FirePrefAttack]
+			Mode = All
+		}
+		DefendToggle
+		{
+			Type = MultiToggle
+			Toggles = [FireModeToggle, FirePrefDefend]
+			Mode = All
+		}
+        AmmoStorage
+        {
+            Type = AmmoConsumer
+            AmmoType = mini_railgun_slugs
+            MaxAmmo = 80
+            StartingAmmo = 0
+            Priorities = &/PRIORITIES/Weapon_Supply
+            ResupplyThreshold = 48
+            
+            ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/AmmoDeliver
+        }
+        
+		BatteryStorage
+		{
+			Type = AmmoConsumer
+			AmmoType = battery
+			MaxAmmo = 2000
+			StartingAmmo = 0
+			Priorities = &/PRIORITIES/Weapon_Supply
+			JobUnassignThreshold = 1000000// Effectively unassignable.
+			ResupplyThreshold = 500
+			AmmoDesireToggle = PowerToggle
+
+			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [1, 1]
+			OperationalToggle = IsOperational
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [2, 2]
+					}
+					{
+						File = "floor_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "floor_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						File = "doodads_low.png"
+						Size = [2, 2]
+					}
+				]
+			}
+            NonOperationalDoodad = &OperationalDoodad
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "./Data/ships/terran/ammo_storage/walls.png"
+						Size = [2, 2]
+					}
+					{
+						File = "./Data/ships/terran/ammo_storage/walls_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "./Data/ships/terran/ammo_storage/walls_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+		}
+        Turret
+        {
+			Type = TurretWeapon
+			Location = [1.5, 1.5] // Relative to upper-left corner of unrotated part.
+			Rotation = -90d // Relative to unrotated part.
+			OperationalToggle = IsOperational
+			AutoFireToggle = AutoFireToggle
+			FireInterval = 0.1
+			FiringArc = 360d
+			RotateSpeed = 120d
+			FireThresholdAngle = 1d
+			AIFirepowerRating = 1000
+			Emitter = BulletEmitter
+            AllowFireWithBlockedLOS = true
+
+			AutoTargets
+			[
+				{
+					TargetType = Bullets
+					BulletTargetCategories = [missile, mine, bullet]
+					Toggle = DefendToggle
+				}
+				{
+					TargetType = ShipParts
+					Toggle = AttackToggle
+					Overridable = true
+				}
+			]
+
+			BlueprintArcSprite
+			{
+				Texture = &/INDICATORS/WeaponArc
+				Size = [0, 1.5]
+				Color = [255, 0, 0, 63]
+			}
+			BlueprintArcRadius = 10
+			BlueprintArcSpriteSegments = 64
+
+			CoverageSectorArc
+			{
+				Texture = &/INDICATORS/VerticalGradient
+				VertexColor = [255, 255, 255, 51]
+				QuadCount = 64
+			}
+        }
+
+		ReloadProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = IsOperational
+			ShowProgressFor = Turret
+		}
+
+		BulletEmitter
+		{
+			Type = BulletEmitter
+			ChainedTo = Turret
+			FireTrigger = Turret
+			GetTargetFrom = Turret
+			Location = [0.5, -0.359]
+			OperationalToggle = IsOperational
+			Bullet = &<mapd_shot.txt>
+			Spread = [-3d, 3d]
+			AmmoStorage = AmmoStorage
+			AmmoUsed = 1
+			Recoil = 1
+		}
+        BulletEmitterRight : &BulletEmitter
+        {
+            Location = [0.5, 0.359]
+            Delay = 0.05
+        }
+
+		FireEffect
+		{
+			Type = TriggeredEffects
+			ChainedTo = Turret
+			Trigger = Turret
+			Location = [3, 0]
+
+			MediaEffects
+			[
+				&<particles/cannon_shoot_large.txt>
+				&<particles/cannon_smoke_large.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "shoot.wav"
+					SpeedVariation = .25
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .075
+					Duration = .5
+				}
+			]
+		}
+        BarrelSprite
+		{
+			Type = Sprite
+			ChainedTo = Turret
+			Location = [0, 0]
+			Rotation = 90d
+			Layer = "roof_doodads"
+			ResetAnimationTrigger = Turret
+			AtlasSprite
+			{
+				AnimationFiles
+				[
+					//"barrel1.png"
+					"barrel2.png"
+					"barrel3.png"
+					"barrel4.png"
+					"barrel5.png"
+					"barrel6.png"
+					"barrel7.png"
+					"barrel8.png"
+					"barrel1.png"// Loop back to beginning and clamp there.
+				]
+				Size = [3, 3]
+				AnimationInterval = 0.0625
+				AnimationStartTime = MinValue
+				ClampAnimation = true
+			}
+		}
+		BatterySprites
+		{
+			Type = AmmoSprites
+			Location = [1, 1]
+			AmmoStorage = BatteryStorage
+			Layer = "doodads_low"
+			AmmoLevels
+			[
+				{
+					File = "battery0.png"
+					Size = [2, 2]
+				}
+				{
+					File = "battery1.png"
+					Size = [2, 2]
+				}
+				{
+					File = "battery2.png"
+					Size = [2, 2]
+				}
+			]
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/MedPartDestroyed
+			Location = [1, 1]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1, 1]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = BatteryStorage
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1.5, 1.5]
+					}
+				}
+                {
+                    Toggle = AmmoStorage
+                    AtlasSprite
+                    {
+                        File = "../ammo_classes/no_minislugs.png"
+                        Size = [1.5, 1.5]
+                    }
+                }
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [2, 2]
+		}
+	}
+
+	Stats
+	{
+		PowerCapacity = (&~/Part/Components/BatteryStorage/MaxAmmo) / 1000
+	}
+}

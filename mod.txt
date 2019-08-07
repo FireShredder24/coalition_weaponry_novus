@@ -17,7 +17,7 @@ Actions
 		[
 			//&<slug_storages/large-slugs.txt>/Part
 			//&<slug_storages/minislugs.txt>/Part
-			//&<mapd/mapd.txt>/Part
+			&<mapd/mapd_new.txt>/Part
 			&<sfdc/sfdc.txt>/Part
 		]
 	}

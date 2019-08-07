@@ -140,13 +140,7 @@ Part : /BASE_PART
 					}
 				]
 			}
-		}
-		DoodadsLow
-		{
-			Type = Graphics
-			OperationalToggle = IsOperational
-			Location = [1, 1]
-			OperationalDoodad
+            OperationalDoodad
 			{
 				Layer = "doodads_low"
 				DamageLevels
