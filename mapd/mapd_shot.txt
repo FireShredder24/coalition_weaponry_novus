@@ -37,33 +37,18 @@ Components
 		SourceShipCollisionDelay = Infinity
 		Penetration = 4
 
-		HitShield
-		{
-			HitEffects
-			[
-				{
-					Type = ShieldDamage
-					Damage = 250
-				}
-				{
-					Type = Impulse;
-					Impulse = 10;
-				}
-			]
-
-			MediaEffects = &../HitOperational/MediaEffects
-		}
+		HitShield = &HitOperational
 		HitOperational
 		{
 			HitEffects
 			[
 				{
-					Type = PartDamage
+					Type = Damage
 					Damage = 800
 				}
 				{
-					Type = Impulse;
-					Impulse = 10;
+					Type = Impulse
+					Impulse = 10
 				}
 			]
 
@@ -71,7 +56,7 @@ Components
 			[
 				: /BASE_SOUNDS/AudioExterior
 				{
-					Sound = "./Data/shots/bullet_med/hit.wav"
+					Sound = "./Data/shots/bullet_med/bullet_med_hit.wav"
 					Volume = .8
 					SpeedVariation = .4
 				}
@@ -88,7 +73,7 @@ Components
 			HitEffects
 			[
 				{
-					Type = PartDamage
+					Type = Damage
 					Damage = 750
 				}
 				{
@@ -100,7 +85,7 @@ Components
 			[
 				: /BASE_SOUNDS/AudioExterior
 				{
-					Sound = "./Data/shots/bullet_med/hit.wav"
+					Sound = "./Data/shots/bullet_med/bullet_med_hit.wav"
 					Volume = .8
 					SpeedVariation = .4
 				}
@@ -117,7 +102,7 @@ Components
 			HitEffects
 			[
 				{
-					Type = PartDamage
+					Type = Damage
 					Damage = 400
 				}
 			]
@@ -128,11 +113,15 @@ Components
 			HitEffects
 			[
 				{
-					Type = PartAreaDamage
-					DamageVsOperationalPerTile = 500
-					RadiusVsOperational = 1
-					DamageVsStructurePerTile = 400
-					RadiusVsStructure = 1
+					Type = ExplosiveDamage
+					TotalDamage = 500
+					Radius = 1.5
+					FireChancePerNDamage = 50%
+					ImpulsePerNDamage = 2
+					Filter
+					{
+						Friendlies = false
+					}
 				}
 			]
 		}

@@ -2,10 +2,10 @@ Part : /BASE_PART
 {
 	NameKey = "Parts/MAPD"
 	IconNameKey = "Parts/MAPDIcon"
-	IDString = fireshredder24.mapd
+	ID = fireshredder24.mapd
 	EditorGroup = "Weapons"
 	DescriptionKey = "Parts/MAPDDesc"
-	Cost = 7500
+	Cost = 6500
 	AIValue = 100
 	Size = [2, 2]
 	MaxHealth = 16000
@@ -18,7 +18,7 @@ Part : /BASE_PART
 		}
 		Size = [64, 64]
 	}
-	Components : ^/0/Components
+	Components
 	{
 		IsOperational
 		{
@@ -65,7 +65,7 @@ Part : /BASE_PART
 			StartingAmmo = 0
 			SuppliesAmmo = false
 			Priorities = &/PRIORITIES/Weapon_Supply
-			RecieveAmmoMediaEffects = &/COMMON_EFFECTS/AmmoDeliver
+			RecieveAmmoMediaEffects = &/COMMON_EFFECTS/PowerDeliver
 		}
 		Graphics
 		{
@@ -162,7 +162,7 @@ Part : /BASE_PART
 		Turret
 		{
 			Type = TurretWeapon
-			OperationalToggle = IsOperational,
+			OperationalToggle = IsOperational
 			Location = [1, 1]// Relative to upper-left corner of unrotated part.
 			Rotation = -90d// Relative to unrotated part.
 			FireInterval = 0.1
@@ -173,9 +173,19 @@ Part : /BASE_PART
 			AIFirepowerRating = 1000
 			FireModeToggle = FireModeToggle
 			AllowFireWithBlockedLOS = true
-			TargetTypesByPriority = [Bullets]
+			TargetTypesByPriority = [Bullets, Ships]
 			Emitter = BulletEmitterBase
-
+			AutoTargets
+			[
+				{
+					TargetType = ShipParts
+					Toggle = FireModeToggle
+				}
+				{
+					TargetType = Bullets
+					Toggle = FireModeToggle
+				}
+			]
 			BlueprintArcSprite
 			{
 				Texture = &/INDICATORS/WeaponArc
@@ -192,42 +202,108 @@ Part : /BASE_PART
 				QuadCount = 64
 			}
 		}
-		ShootCycle
+		ShootSynchronizedComponents
 		{
-			Type = ModeCycle
-			ModeRange = [0, 1]
-			IncrementTrigger = Turret
-			StartingMode = 1 // First shot will switch to mode 0.
+			Type = ToggledComponents
+			Toggle = FireAlternatingToggle
+			Invert = true
+			Components
+			{
+				FireTimer
+				{
+					Type = Timer
+					OperationalToggle = IsOperational
+					Duration = 1.125
+					AutoStart = true
+					StartTrigger = Turret
+				}
+
+				ReloadProgressBar
+				{
+					Type = ProgressBar
+					OperationalToggle = IsOperational
+					ShowProgressFor = FireTimer
+					Invert = true
+				}
+
+				ShootLeftTrigger
+				{
+					Type = TriggerProxy
+					ComponentID = Turret
+				}
+
+				ShootRightTrigger
+				{
+					Type = TriggerProxy
+					ComponentID = Turret
+				}
+			}
 		}
 
-		ShootLeftTrigger
+		ShootAlternatingComponents
 		{
-			Type = ModeTrigger
-			Mode = ShootCycle
-			TriggerInModes = [0]
+			Type = ToggledComponents
+			Toggle = FireAlternatingToggle
+			Components
+			{
+				FireTimer
+				{
+					Type = Timer
+					OperationalToggle = IsOperational
+					Duration = 0.5625
+					AutoStart = true
+					StartTrigger = Turret
+				}
+
+				ReloadProgressBar
+				{
+					Type = ProgressBar
+					OperationalToggle = IsOperational
+					ShowProgressFor = FireTimer
+					Invert = true
+				}
+
+				ShootCycle
+				{
+					Type = ModeCycle
+					ModeRange = [0, 1]
+					IncrementTrigger = Turret
+					StartingMode = 1 // First shot will switch to mode 0.
+				}
+
+				ShootLeftTrigger
+				{
+					Type = ModeTrigger
+					Mode = ShootCycle
+					TriggerInModes = [0]
+				}
+
+				ShootRightTrigger
+				{
+					Type = ModeTrigger
+					Mode = ShootCycle
+					TriggerInModes = [1]
+					OperationalToggle = FireAlternatingToggle
+				}
+			}
 		}
 
-		ShootRightTriggerSynchronized
+		FireTimerProxy
 		{
-			Type = ModeTrigger
-			Mode = ShootCycle
-			TriggerInModes = [0]
-			OperationalToggle = FireAlternatingToggle
-			InvertOperationalToggle = true
+			Type = ToggleProxy
+			ComponentID = FireTimer
 		}
 
-		ShootRightTriggerAlternating
+		ShootLeftTriggerProxy
 		{
-			Type = ModeTrigger
-			Mode = ShootCycle
-			TriggerInModes = [1]
-			OperationalToggle = FireAlternatingToggle
+			Type = TriggerProxy
+			ComponentID = ShootLeftTrigger
 		}
 
-		ShootRightTrigger
+		ShootRightTriggerProxy
 		{
-			Type = MultiTrigger
-			Triggers = [ShootRightTriggerSynchronized, ShootRightTriggerAlternating]
+			Type = TriggerProxy
+			ComponentID = ShootRightTrigger
 		}
 
 		BulletEmitterBase // Doesn't actually fire; only used for targeting and as a base for the left and right emitters.
@@ -380,21 +456,29 @@ Part : /BASE_PART
 			HitEffects
 			[
 				{
-					Type = PartAreaDamage
-					DamageVsOperationalPerTile = 2000
-					RadiusVsOperational = 4
-					DamageVsStructurePerTile = 1000
-					RadiusVsStructure = 3
-					Delay = .05
-					AllowFriendlyDamage = true
+					Type = ExplosiveDamage
+					TotalDamage = 500
+					Radius = 2.5
+                    FireChancePerNDamage = 25%
+                    ImpulsePerNDamage = 0.1
+					Filter
+					{
+                        OperationalHealth = true
+						StructuralHealth = false
+						Friendlies = false
+					}
 				}
-				{
-					Type = AreaFires
-					FireChancePerTile = .25
-					FireRadius = 4
-					FireFalloff = 0
-					Delay = .05
-					AllowFriendlyFires = true
+                {
+					Type = ExplosiveDamage
+					TotalDamage = 400
+					Radius = 2
+                    ImpulsePerNDamage = 0.2
+					Filter
+					{
+                        OperationalHealth = false
+						StructuralHealth = true
+						Friendlies = false
+					}
 				}
 			]
 		}
@@ -421,7 +505,7 @@ Part : /BASE_PART
 					Toggle = AmmoStorage
 					AtlasSprite
 					{
-						File = ../ammo_classes/no_minislugs.png
+						File = "../ammo_classes/no_minislugs.png"
 						Size = [1.5, 1.5]
 					}
 				}
